@@ -31,6 +31,7 @@ $username = '';
 $password = '';
 $database = '';
 $tablePrefix = '';
+$charset='utf8mb4';
 
 // Optional params for MYISAM table fix script Tables listed in the extraVbTables 
 // array will be included in the scan. This allows you to update tables that are 
