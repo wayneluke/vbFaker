@@ -1,0 +1,52 @@
+<?php
+
+/*========================================================================*\
+|| ###################################################################### ||
+|| # vBulletin 5.4.3 - Licence Number 34962030
+|| # ------------------------------------------------------------------ # ||
+|| # Copyright 2000-2018 vBulletin Solutions Inc. All Rights Reserved.  # ||
+|| # This file may not be redistributed in whole or significant part.   # ||
+|| # ----------------- VBULLETIN IS NOT FREE SOFTWARE ----------------- # ||
+|| # http://www.vbulletin.com | http://www.vbulletin.com/license.html   # ||
+|| ###################################################################### ||
+\*========================================================================*/
+
+/*******************************************************************
+vBulletin Database Modification Tools. 
+These tools were created to allow users to change configuration 
+issues within their databases that can affect performance and 
+translation. 
+
+Before running any of these tools, make sure to create a database 
+backup.
+
+For more information please see this readme.md included in this 
+archive.
+*******************************************************************/
+
+// Use these fields to point to the database you want to modify. 
+// The values should match those provided in your /core/includes/config.php file.
+$host = 'localhost';
+$username = '';
+$password = '';
+$database = '';
+$tablePrefix = '';
+
+// Optional params for MYISAM table fix script Tables listed in the extraVbTables 
+// array will be included in the scan. This allows you to update tables that are 
+// not part of a vBulletin 5 default installation.
+
+// $extraVbTables = array('fred'); 
+
+
+// Params for the db compare script.  This is for the reference database
+// we are comparing the current database to.  The database name and prefix are required
+// the remaining params will use the values for the current database defined above
+
+// $sourceHost = '';
+// $sourceUsername = '';
+// $sourcePassword = '';
+
+$sourceDatabase = 'vb420';
+$sourceTablePrefix = '';
+
