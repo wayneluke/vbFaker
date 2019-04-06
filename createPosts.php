@@ -1,5 +1,12 @@
 <?php
 
+$channels = [3];
+
+$topics = [
+	'min' => 10000,
+	'max' => 50000,
+];
+
 class topicBuilder
 {
 
@@ -68,14 +75,12 @@ class topicBuilder
 			$replyCount = mt_rand(1,50);
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
       $title = $this->faker->words(3, true);
-      $paragraphs = mt_rand(1, 10);
+      $paragraphs = mt_rand(5, 15);
 			$text = $this->faker->paragraphs($paragraphs, true);
 			$this->createThread($channelid, $title, $text, $replyCount);
 		}
 	}
 }
-
-$channels = [3];
 
 // require the Faker autoloader
 require_once __DIR__ . '/vendor/autoload.php';
@@ -99,7 +104,7 @@ vB::getRequest()->createSession();
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
 $topics = new topicBuilder;
 
-$maxtopics = mt_rand(500,5000);
+$maxtopics = mt_rand($topics['min'],$topics['max']);
 
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
 sleep(2);
