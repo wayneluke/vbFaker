@@ -15,7 +15,7 @@
 // How many users? 
 $limits = [
 	'min' => 1,
-	'max' => 5,
+	'max' => 6,
 ];
 
 
@@ -23,7 +23,7 @@ $limits = [
 
 function buildUser($switchLocale=false)
 {
-	$locales = ['en_US','en_GB','fr_CA','es_ES','vi_VN','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US',];
+	$locales = ['en_US','en_GB','fr_CA','es_ES','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US',];
 
 	$newUser = [];	
 	$percentage=0;
@@ -45,6 +45,9 @@ function buildUser($switchLocale=false)
 	$percentage = mt_rand (1,100);
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
 	$newUser['email'] = strtolower(str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType);
+
+	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
+	$newUser['birthday'] = $birthday->format('m-d-Y');
 	
 //	$percentage = mt_rand (1,100);
 //	$ipType = $percentage < 85 ? 'ipv4' : 'ipv6';
@@ -88,12 +91,12 @@ $userApi = vB_Api::instance('user');
 echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
 sleep(2);
 
-$count = 0;
-while ($count++ < $maxUsers);
+for($i = 0; $i < $maxUsers; $i++)
 {
 	$user = buildUser(true);
 	
 	echo 'Creating user ' . $user['username'] . " (" . $user['email'] . ")\n";
+	
 	try 
 	{
 		$userId = $userApi->save(0, getPassword(), $user, array(), array(), array());
