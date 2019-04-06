@@ -14,8 +14,8 @@
 ################# Set Variables ############################
 // How many users? 
 $limits = [
-	'min' => 1,
-	'max' => 6,
+	'min' => 1500,
+	'max' => 6000,
 ];
 
 
@@ -23,7 +23,7 @@ $limits = [
 
 function buildUser($switchLocale=false)
 {
-	$locales = ['en_US','en_GB','fr_CA','es_ES','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US',];
+	$locales = ['en_US','en_GB','fr_CA','vi_VN','es_ES','es_ES','es_ES','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US','en_US',];
 
 	$newUser = [];	
 	$percentage=0;
@@ -44,7 +44,8 @@ function buildUser($switchLocale=false)
 	// encourage a mix of free email providers and random domains.
 	$percentage = mt_rand (1,100);
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
-	$newUser['email'] = strtolower(str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType);
+	$email = str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType;
+	$newUser['email'] = strtolower(convertCharacters($email));
 
 	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
 	$newUser['birthday'] = $birthday->format('m-d-Y');
@@ -66,7 +67,7 @@ function getPassword()
 }
 // require the autoloader to start Faker
 require_once __DIR__ . '/vendor/autoload.php';
-
+require_once __DIR__ . '/include/convertToAscii.php';
 
 //init the vBulletin system
 require_once('../vb/vb.php');
