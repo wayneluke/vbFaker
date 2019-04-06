@@ -45,7 +45,8 @@ function buildUser($switchLocale=false)
 	$percentage = mt_rand (1,100);
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
 	$email = str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType;
-	$newUser['email'] = strtolower(convertCharacters($email));
+	setlocale(LC_ALL, 'de_DE');
+  $newUser['email'] = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $email));
 
 	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
 	$newUser['birthday'] = $birthday->format('m-d-Y');
@@ -67,7 +68,6 @@ function getPassword()
 }
 // require the autoloader to start Faker
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/include/convertToAscii.php';
 
 //init the vBulletin system
 require_once('../vb/vb.php');
