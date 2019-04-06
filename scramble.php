@@ -11,8 +11,8 @@ require_once ('vbutil_config.php');
 $queries = [
   'nodes'       => 'SELECT nodeid FROM `' . $tablePrefix . 'node` WHERE contenttypeid=22',
   'users'       => 'SELECT count(*) as totalusers from `' . $tablePrefix . 'user`',
-  'user'        => 'SELECT userid, username from `' . $tablePrefix . 'user` WHERE userid=?',
-  'changenode'  => 'UPDATE `' . $tablePrefix . 'node` SET userid = ?, authorname = ? WHERE nodeid=?',
+  'user'        => 'SELECT userid, username, ipaddress from `' . $tablePrefix . 'user` WHERE userid=?',
+  'changenode'  => 'UPDATE `' . $tablePrefix . 'node` SET userid=?, authorname=?, ipaddress=? WHERE nodeid=?',
 ];
 
 $pdoOptions = [
@@ -42,5 +42,5 @@ foreach ($nodes as $node)
 
   echo 'Changing Node: ' . $node['nodeid'] . ' to User: ' . $user['username'] . " (" . $user ['userid'] . ")\n";
   $stmt2 = $pdo->prepare($queries['changenode']);
-  $stmt2->execute([$user['userid'], $user['username'],$node['nodeid']]);
+  $stmt2->execute([$user['userid'], $user['username'],$user['ipaddress'],$node['nodeid']]);
 }
