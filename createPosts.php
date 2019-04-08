@@ -1,8 +1,8 @@
 <?php
 
-$channels = [3];
+$channels = [15,16,17,19,20,21,22,23,24,26,27,28,29,30,31,32,33];
 
-$topics = [
+$topicLimit = [
 	'min' => 10000,
 	'max' => 50000,
 ];
@@ -104,7 +104,7 @@ vB::getRequest()->createSession();
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
 $topics = new topicBuilder;
 
-$maxtopics = mt_rand($topics['min'],$topics['max']);
+$maxtopics = mt_rand($topicLimit['min'],$topicLimit['max']);
 
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
 sleep(2);

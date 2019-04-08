@@ -10,7 +10,7 @@ require_once ('vbutil_config.php');
 
 $queries = [
   'nodes'       => 'SELECT nodeid FROM `' . $tablePrefix . 'node` WHERE contenttypeid=22',
-  'users'       => 'SELECT count(*) as totalusers from `' . $tablePrefix . 'user`',
+  'users'       => 'SELECT max(userid) as totalusers from `' . $tablePrefix . 'user`',
   'user'        => 'SELECT userid, username, ipaddress from `' . $tablePrefix . 'user` WHERE userid=?',
   'changenode'  => 'UPDATE `' . $tablePrefix . 'node` SET userid=?, authorname=?, ipaddress=? WHERE nodeid=?',
 ];
@@ -35,10 +35,11 @@ $counter=0;
 foreach ($nodes as $node)
 {
   
-  $userid = mt_rand(1, $users['totalusers']);
+  $userid = mt_rand(3, $users['totalusers']);
   $stmt = $pdo->prepare($queries['user']);
   $stmt->execute([$userid]);
   $user = $stmt->fetch(); 
+  if ($user['ipaddress']===null) {$user['ipaddress']='127.0.0.1';}
 
   echo 'Changing Node: ' . $node['nodeid'] . ' to User: ' . $user['username'] . " (" . $user ['userid'] . ")\n";
   $stmt2 = $pdo->prepare($queries['changenode']);
