@@ -43,6 +43,4 @@ A reference database containing over 30,000 users and over 2 Million Posts creat
 
 vbFaker is licensed under the MIT License.
 
-Copyright © 2019 MH Sub I, LLC dba vBulletin. All rights reserved.
-
 A valid vBulletin license is required to use vbFaker. This can be obtained at [vBulletin.com](https://www.vbulletin.com)
