@@ -24,7 +24,7 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - random IP addresses.
 - createPosts.php: Creates a random number of topics and replies in Forum Channels from a specified list.
   - Each Topic starter has a random length of Lorem Ipsum text.
-  - Each Topic will have a random number of replies between 1 and 50.
+  - Each Topic will have a random number of replies between 0 and 100.
   - Each Reply will reference the Topic ID and have a random length of Lorem Ipsum text.
 
 ## Coming Soon
