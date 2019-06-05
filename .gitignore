@@ -1,4 +1,5 @@
 composer.phar
+composer.lock
 /vendor/
 vbutil_config.php
 
