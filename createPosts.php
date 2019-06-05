@@ -1,10 +1,11 @@
 <?php
 
-$channels = [15,16,17,19,20,21,22,23,24,26,27,28,29,30,31,32,33];
+$channels = [24,25,26,28,29,30,32,33,34];
+
 
 $topicLimit = [
-	'min' => 10000,
-	'max' => 50000,
+	'min' => 100,
+	'max' => 5000,
 ];
 
 class topicBuilder
@@ -20,11 +21,24 @@ class topicBuilder
   
   protected function createFirstPost($channelid, $title, $text)
 	{
+		$tags='';
+		$tagC=0;
+
+		$words = preg_split('/[\ \n\r\,\.]+/', $text, -1, PREG_SPLIT_NO_EMPTY);
+		while ($tagC < 5) {
+			$key = array_rand($words);
+			if (strlen($words[$key]) > 3) {
+				$tags .= $words[$key] . ',';
+				$tagC++;
+			}
+		}
+		$tags = rtrim($tags,',');
+
 		$textData = [
 			'parentid' => $channelid,
 			'title' => $title,
-      'rawtext' => $text,
-			'tags' => 'tagone,tagtwo,tagthree,tagfour,tagfive',
+			'rawtext' => $text,
+			'tags' => $tags,
     ];
     
     $options = [
@@ -69,10 +83,17 @@ class topicBuilder
 
 	public function createThreads($channelid, $threadCount = 5)
 	{
+		$maxReplies = [0,0,20,20,50,50,100,100];
+		$key=0;
 
     for ($i = 1; $i <= $threadCount; ++$i)
 		{
-			$replyCount = mt_rand(1,50);
+			$key = array_rand($maxReplies);
+			if ($maxReplies[$key]==0) {
+				$replyCount=0;
+			} else {
+				$replyCount = mt_rand(0,$maxReplies[$key]);
+			}
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
       $title = $this->faker->words(3, true);
       $paragraphs = mt_rand(5, 15);
@@ -105,9 +126,8 @@ vB::getRequest()->createSession();
 $topics = new topicBuilder;
 
 $maxtopics = mt_rand($topicLimit['min'],$topicLimit['max']);
-
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
-sleep(2);
+sleep(1);
 
 $topic = 0;
 while ($topic++ < $maxtopics) {

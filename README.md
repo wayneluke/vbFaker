@@ -37,6 +37,13 @@ Each task is its own file within the vbFaker directory. Please read the comments
 
 A reference database containing over 30,000 users and over 2 Million Posts created with vbFaker can be found at [GitHub]()
 
+## Change Log
+
+### June 5 2019
+
+- Tags are randomly generated from Topic Starter Content.
+- A little more randomization added to the number of replies.
+
 ## License
 
 vbFaker is licensed under the MIT License.
