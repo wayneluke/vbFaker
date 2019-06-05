@@ -13,7 +13,7 @@ To install:
 1. Copy the vBFaker directory into your /core/ directory. 
 1. Open a command line window (cmd, wsl, bash, zsh, etc...)
 1. From the command line change to the vbFaker directory. 
-  - `cd /vbulletin/core/vbFaker`
+    - `cd /vbulletin/core/vbFaker`
 1. Run `composer update`.
 
 ## Tasks
