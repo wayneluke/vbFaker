@@ -3,18 +3,25 @@ Creates fake data in a vBulletin 5 installation. In order to do this, it utilize
 
 ## Installing
 
-[Composer](https://getcomposer.org/) is required for this project.
-
 To install:
 
 1. [Install Composer](https://getcomposer.org/download/).
 1. Install vBulletin 5 into a web accessible directory.
+    - Your vBulletin installation must have a user with the userid of 1.
 1. Download this repository to your local drive.
 1. Copy the vBFaker directory into your /core/ directory.
 1. Open a command line window (cmd, wsl, bash, zsh, etc...)
 1. From the command line change to the vbFaker directory.
     - `cd /vbulletin/core/vbFaker`
 1. Run `composer update`.
+
+### Dependencies
+
+- [Composer](https://getcomposer.org/) is required for this project.
+- vBulletin
+- [fzaninotto/faker](https://github.com/fzaninotto/Faker) - Random data generator.
+
+All dependencies except Composer and vBulletin will be automatically installed by running `composer update`.
 
 ## Usage
 
@@ -39,9 +46,11 @@ Each task is its own file within the vbFaker directory. Please read the comments
 
 ## Coming Soon
 
+- IPv6 Addresses for users and posts.
 - The ability to create topics with other content types.
-- Create posts with different users. Currently all posts are created by user id #1
+- Create posts with different users. Currently all posts are created by user id #1.
 - Command line parameters to control amount of items created.
+- Menu system that accepts parameters.
 
 ## Reference Database
 
