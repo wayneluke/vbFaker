@@ -7,10 +7,13 @@ Creates fake data in a vBulletin 5 installation. In order to do this, it utilize
 
 To install:
 
-1. Install Composer.
+1. [Install Composer](https://getcomposer.org/download/).
 1. Install vBulletin 5 into a web accessible directory.
-1. Download this repository to your local drive. It expects to be in a subdirectory of vBulletin's /core/ directory.
-1. From the command line change to the vbFaker directory.
+1. Download this repository to your local drive. 
+1. Copy the vBFaker directory into your /core/ directory. 
+1. Open a command line window (cmd, wsl, bash, zsh, etc...)
+1. From the command line change to the vbFaker directory. 
+    - `cd /vbulletin/core/vbFaker`
 1. Run `composer update`.
 
 ## Tasks
