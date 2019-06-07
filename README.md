@@ -9,12 +9,18 @@ To install:
 
 1. [Install Composer](https://getcomposer.org/download/).
 1. Install vBulletin 5 into a web accessible directory.
-1. Download this repository to your local drive. 
-1. Copy the vBFaker directory into your /core/ directory. 
+1. Download this repository to your local drive.
+1. Copy the vBFaker directory into your /core/ directory.
 1. Open a command line window (cmd, wsl, bash, zsh, etc...)
-1. From the command line change to the vbFaker directory. 
+1. From the command line change to the vbFaker directory.
     - `cd /vbulletin/core/vbFaker`
 1. Run `composer update`.
+
+## Usage
+
+Each task is run from the commandline of the vbFaker directory.
+
+Ex: `php createUsers.php`
 
 ## Tasks
 
@@ -25,6 +31,7 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - email addresses - firstname.lastname@domain.com (UTF-8 characters are stripped via iconv)
   - randomized passwords
   - random IP addresses.
+  - Users are placed in random usergroups
 - createPosts.php: Creates a random number of topics and replies in Forum Channels from a specified list.
   - Each Topic starter has a random length of Lorem Ipsum text.
   - Each Topic will have a random number of replies between 0 and 100.
@@ -34,7 +41,7 @@ Each task is its own file within the vbFaker directory. Please read the comments
 
 - The ability to create topics with other content types.
 - Create posts with different users. Currently all posts are created by user id #1
-- The ability to randomly place users in different usergroups. Currently they are all located in the registered usergroup.
+- Command line parameters to control amount of items created.
 
 ## Reference Database
 
