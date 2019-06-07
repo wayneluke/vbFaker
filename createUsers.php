@@ -56,6 +56,28 @@ function buildUser($switchLocale=false)
 //	$user['ipaddress'] = $faker->$ipType;
 	$newUser['ipaddress'] = $faker->ipv4;
 
+	$groupChance=mt_rand(1,100);
+	switch (true) {
+		case ($groupChance < 4): 
+			$newUser['usergroupid']=8;
+			break;
+		case ($groupChance < 10):
+			$newUser['usergroupid']=3;
+			break;
+		case ($groupChance < 20):
+			$newUser['usergroupid']=4;
+			break;
+		case ($groupChance < 30):
+			$newUser['usergroupid']=14;
+			break;
+			case ($groupChance < 30):
+				$newUser['usergroupid']=15;
+				break;
+		default:
+			$newUser['usergroupid']=2;
+			break;
+	}
+
 	return $newUser;
 }
 
@@ -91,6 +113,8 @@ $maxUsers= mt_rand ($limits['min'], $limits['max']);
 $userApi = vB_Api::instance('user');
 echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
 sleep(2);
+
+$maxUsers = 2837;
 
 for($i = 0; $i < $maxUsers; $i++)
 {

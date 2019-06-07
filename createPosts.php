@@ -4,8 +4,8 @@ $channels = [24,25,26,28,29,30,32,33,34];
 
 
 $topicLimit = [
-	'min' => 100,
-	'max' => 5000,
+	'min' => 5000,
+	'max' => 25000,
 ];
 
 class topicBuilder
