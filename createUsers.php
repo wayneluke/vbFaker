@@ -70,7 +70,7 @@ function buildUser($switchLocale=false)
 		case ($groupChance < 30):
 			$newUser['usergroupid']=14;
 			break;
-			case ($groupChance < 30):
+			case ($groupChance < 40):
 				$newUser['usergroupid']=15;
 				break;
 		default:

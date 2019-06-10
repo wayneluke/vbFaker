@@ -46,15 +46,18 @@ Each task is its own file within the vbFaker directory. Please read the comments
 
 ## Coming Soon
 
-- IPv6 Addresses for users and posts.
-- The ability to create topics with other content types.
-- Create posts with different users. Currently all posts are created by user id #1.
-- Command line parameters to control amount of items created.
-- Menu system that accepts parameters.
+- [ ] The ability to create topics with other content types.
+- [ ] Create posts with different users. Currently all posts are created by user id #1.
+- [ ] Command line parameters to control amount of items created.
+- [ ] Menu system that accepts parameters.
+
+### Requires vBulletin Support
+
+- [ ] IPv6 Addresses for users and posts.
 
 ## Reference Database
 
-A reference database containing over 30,000 users and over 2 Million Posts created with vbFaker can be found at [GitHub]()
+A reference database containing over 39,000 users and over 2 Million Posts created with vbFaker can be found at [wayneluke/vBDatabase](https://github.com/wayneluke/vBDatabase).
 
 ---
 
