@@ -114,8 +114,6 @@ $userApi = vB_Api::instance('user');
 echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
 sleep(2);
 
-$maxUsers = 2837;
-
 for($i = 0; $i < $maxUsers; $i++)
 {
 	$user = buildUser(true);
