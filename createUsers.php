@@ -46,7 +46,7 @@ function buildUser($switchLocale=false)
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
 	$email = str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType;
 	setlocale(LC_ALL, 'de_DE');
-  $newUser['email'] = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $email));
+  $newUser['email'] = strtolower(iconv('UTF-8', 'utf-8//TRANSLIT', $email));
 
 	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
 	$newUser['birthday'] = $birthday->format('m-d-Y');
