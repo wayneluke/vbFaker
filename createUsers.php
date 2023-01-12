@@ -95,7 +95,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once('../vb/vb.php');
 vB::init();
 
-vB::setRequest(new vB_Request_Test(
+vB::setRequest(new vB_Request_Cli(
 	array(
 		'userid' => 1,
 		'ipAddress' => '127.0.0.1',
@@ -104,7 +104,7 @@ vB::setRequest(new vB_Request_Test(
 	)
 ));
 
-vB::getRequest()->createSession();
+vB::getRequest()->createSessionForUser(1);
 vB::getCurrentSession()->fetchCpsessionHash();
 
 
