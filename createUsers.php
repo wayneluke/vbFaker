@@ -46,18 +46,22 @@ function buildUser($switchLocale=false)
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
 	$email = str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType;
 	setlocale(LC_ALL, 'de_DE');
-  $newUser['email'] = strtolower(iconv('UTF-8', 'utf-8//TRANSLIT', $email));
+    $newUser['email'] = strtolower(iconv('UTF-8', 'utf-8//TRANSLIT', $email));
 
 	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
 	$newUser['birthday'] = $birthday->format('m-d-Y');
 	
-//	$percentage = mt_rand (1,100);
-//	$ipType = $percentage < 85 ? 'ipv4' : 'ipv6';
-//	$user['ipaddress'] = $faker->$ipType;
-	$newUser['ipaddress'] = $faker->ipv4;
+	$percentage = mt_rand (1,100);
+	$ipType = $percentage < 85 ? 'ipv4' : 'ipv6';
+	$newUser['ipaddress'] = $faker->$ipType;
 
+	// Users should be placed in multiple usergroups. 
+	// This is configured for a vBulletin installation with two custom usergroups
+	// These custom usergroups are usergroupid 14 and usergroupid 15. 
+	// If you don't want to use custom usergroups, you will need to adjust the switch below. 
+	
 	$groupChance=mt_rand(1,100);
-/*	switch (true) {
+	switch (true) {
 		case ($groupChance < 4): 
 			$newUser['usergroupid']=8;
 			break;
@@ -70,15 +74,15 @@ function buildUser($switchLocale=false)
 		case ($groupChance < 30):
 			$newUser['usergroupid']=14;
 			break;
-			case ($groupChance < 40):
+		case ($groupChance < 40):
 				$newUser['usergroupid']=15;
 				break;
 		default:
 			$newUser['usergroupid']=2;
 			break;
 	}
-*/
-	$newUser['usergroupid']=2;
+
+	unset($faker);
 	return $newUser;
 }
 
@@ -134,6 +138,8 @@ for($i = 0; $i < $maxUsers; $i++)
 	{
 		echo "Hit an exception: " . $e->getMessage() . "\n";
 	}
+
+	$user = NULL;
 }
 
 echo "Completed \n";
