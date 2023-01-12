@@ -14,3 +14,5 @@ if ($log_errors) {
     ini_set('log_errors', TRUE); // Error/Exception file logging engine.
     ini_set('error_log', './error_log.txt'); // Logging file path
 }
+
+ini_set('memory_limit','256M');
