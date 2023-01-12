@@ -57,7 +57,7 @@ function buildUser($switchLocale=false)
 	$newUser['ipaddress'] = $faker->ipv4;
 
 	$groupChance=mt_rand(1,100);
-	switch (true) {
+/*	switch (true) {
 		case ($groupChance < 4): 
 			$newUser['usergroupid']=8;
 			break;
@@ -77,7 +77,8 @@ function buildUser($switchLocale=false)
 			$newUser['usergroupid']=2;
 			break;
 	}
-
+*/
+	$newUser['usergroupid']=2;
 	return $newUser;
 }
 
@@ -92,7 +93,8 @@ function getPassword()
 require_once __DIR__ . '/vendor/autoload.php';
 
 //init the vBulletin system
-require_once('../vb/vb.php');
+require_once('config.php');
+require_once($core . 'vb/vb.php');
 vB::init();
 
 vB::setRequest(new vB_Request_Cli(
