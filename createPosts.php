@@ -109,10 +109,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 //init the system
-require_once('../vb/vb.php');
+require_once('config.php');
+require_once($core . 'vb/vb.php');
 vB::init();
 
-vB::setRequest(new vB_Request_Test(
+vB::setRequest(new vB_Request_Cli(
 	array(
 		'userid' => 1,
 		'ipAddress' => '127.0.0.1',
@@ -120,7 +121,7 @@ vB::setRequest(new vB_Request_Test(
 		'userAgent' => 'CLI'
 	)
 ));
-vB::getRequest()->createSession();
+vB::getRequest()->createSessionForUser(4);
 
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
 $topics = new topicBuilder;
