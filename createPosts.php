@@ -1,12 +1,14 @@
 <?php
 
-$channels = [24,25,26,28,29,30,32,33,34];
+$channels = [16,17,18,20,21,22,24,25,26];
 
 
 $topicLimit = [
 	'min' => 5000,
 	'max' => 25000,
 ];
+
+$totalusers = 9777;
 
 class topicBuilder
 {
@@ -71,7 +73,7 @@ class topicBuilder
 
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
-      $reply = "This is reply #$i to thread \"$title\"\n\n";
+      $reply = "This is reply $i to thread \"$title\"\n\n";
       $characters = mt_rand(10,1000);
       $reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
@@ -83,20 +85,14 @@ class topicBuilder
 
 	public function createThreads($channelid, $threadCount = 5)
 	{
-		$maxReplies = [0,0,20,20,50,50,100,100];
-		$key=0;
+		$replyCount=0;
 
-    for ($i = 1; $i <= $threadCount; ++$i)
+    	for ($i = 1; $i <= $threadCount; ++$i)
 		{
-			$key = array_rand($maxReplies);
-			if ($maxReplies[$key]==0) {
-				$replyCount=0;
-			} else {
-				$replyCount = mt_rand(0,$maxReplies[$key]);
-			}
+			$replyCount = mt_rand(0,100);
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
-      $title = $this->faker->words(3, true);
-      $paragraphs = mt_rand(5, 15);
+      		$title = $this->faker->words(3, true);
+      		$paragraphs = mt_rand(5, 15);
 			$text = $this->faker->paragraphs($paragraphs, true);
 			$this->createThread($channelid, $title, $text, $replyCount);
 		}
@@ -113,15 +109,7 @@ require_once('config.php');
 require_once($core . 'vb/vb.php');
 vB::init();
 
-vB::setRequest(new vB_Request_Cli(
-	array(
-		'userid' => 1,
-		'ipAddress' => '127.0.0.1',
-		'altIp' => '127.0.0.1',
-		'userAgent' => 'CLI'
-	)
-));
-vB::getRequest()->createSessionForUser(4);
+vB::setRequest(new vB_Request_Cli());
 
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
 $topics = new topicBuilder;
@@ -131,7 +119,10 @@ echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
 sleep(1);
 
 $topic = 0;
-while ($topic++ < $maxtopics) {
+while ($topic++ <= $maxtopics) {
+	$userid = mt_rand(1, $totalusers);
+	vB::getRequest()->createSessionForUser($userid);
+
 	try 
 	{
     $key= array_rand($channels);
