@@ -101,14 +101,7 @@ require_once('config.php');
 require_once($core . 'vb/vb.php');
 vB::init();
 
-vB::setRequest(new vB_Request_Cli(
-	array(
-		'userid' => 1,
-		'ipAddress' => '127.0.0.1',
-		'altIp' => '127.0.0.1',
-		'userAgent' => 'CLI'
-	)
-));
+vB::setRequest(new vB_Request_Cli());
 
 vB::getRequest()->createSessionForUser(1);
 vB::getCurrentSession()->fetchCpsessionHash();
@@ -120,7 +113,8 @@ $userApi = vB_Api::instance('user');
 echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
 sleep(2);
 
-for($i = 0; $i < $maxUsers; $i++)
+$users=0;
+while($user++ <= $maxUsers)
 {
 	$user = buildUser(true);
 	
