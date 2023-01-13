@@ -44,20 +44,23 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - Each Topic will have a random number of replies between 0 and 100.
   - Each Reply will reference the Topic ID and have a random length of Lorem Ipsum text.
 
+## Notes
+
+1. It is recommended to change the following settings within your vBulletin Installation.
+  - Settings -> Human Verification - Disable this functionality.
+  - Settings -> Options -> Message Posting and Editing Options - Disable Floodcheck.
+
+
+2. If your list of channels does not match the array at the top of createPosts.php then you must update this array. It is the comma separated list within the [] of line #3. Default Line:
+
+>```$channels = [16,17,18,20,21,22,24,25,26];```
+
 ## Coming Soon
 
 - [ ] The ability to create topics with other content types.
-- [ ] Create posts with different users. Currently all posts are created by user id #1.
 - [ ] Command line parameters to control amount of items created.
 - [ ] Menu system that accepts parameters.
 
-### Requires vBulletin Support
-
-- [ ] IPv6 Addresses for users and posts.
-
-## Reference Database
-
-A reference database containing over 39,000 users and over 2 Million Posts created with vbFaker can be found at [wayneluke/vBDatabase](https://github.com/wayneluke/vBDatabase).
 
 ---
 
