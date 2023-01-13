@@ -19,7 +19,7 @@ To install:
 
 - [Composer](https://getcomposer.org/) is required for this project.
 - vBulletin
-- [fzaninotto/faker](https://github.com/fzaninotto/Faker) - Random data generator.
+- [PHPFaker/faker](https://fakerphp.github.io/) - Random data generator.
 
 All dependencies except Composer and vBulletin will be automatically installed by running `composer update`.
 
