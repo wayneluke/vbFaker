@@ -93,6 +93,28 @@ function getPassword()
 
 	return $faker->password;
 }
+
+function createUser($count, $userApi)
+{
+	$user = buildUser(true);
+	
+	echo $count . ' - Creating user ' . $user['username'] . " (" . $user['email'] . ")\n";
+	
+	try 
+	{
+		$userId = $userApi->save(0, getPassword(), $user, array(), array(), array());
+	} 	
+	catch (vB_Exception_Database $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+	catch (Exception $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+
+	$user = NULL;
+}
 // require the autoloader to start Faker
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -114,26 +136,9 @@ echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
 sleep(2);
 
 $users=0;
-while($user++ <= $maxUsers)
+while($users++ <= $maxUsers)
 {
-	$user = buildUser(true);
-	
-	echo 'Creating user ' . $user['username'] . " (" . $user['email'] . ")\n";
-	
-	try 
-	{
-		$userId = $userApi->save(0, getPassword(), $user, array(), array(), array());
-	} 	
-	catch (vB_Exception_Database $e)
-	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
-	}
-	catch (Exception $e)
-	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
-	}
-
-	$user = NULL;
+	createUser($users, $userApi);
 }
 
 echo "Completed \n";

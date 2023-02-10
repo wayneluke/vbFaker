@@ -83,12 +83,14 @@ class topicBuilder
 		return $nodeid;
 	}
 
-	public function createThreads($channelid, $threadCount = 5)
+	public function createThreads($channelid, $totalusers, $threadCount = 5)
 	{
 		$replyCount=0;
 
     	for ($i = 1; $i <= $threadCount; ++$i)
 		{
+			$userid = mt_rand(1, $totalusers);
+			vB::getRequest()->createSessionForUser($userid);
 			$replyCount = mt_rand(0,100);
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
       		$title = $this->faker->words(3, true);
@@ -97,6 +99,26 @@ class topicBuilder
 			$this->createThread($channelid, $title, $text, $replyCount);
 		}
 	}
+}
+
+function process($channels, $maxusers)
+{
+	$topics = new topicBuilder;
+
+	try 
+	{
+    	$key= array_rand($channels);
+		$topics->createThreads($channels[$key], $maxusers, 1);
+	}
+	catch (vB_Exception_Database $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+	catch (Exception $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+
 }
 
 // require the Faker autoloader
@@ -112,7 +134,7 @@ vB::init();
 vB::setRequest(new vB_Request_Cli());
 
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
-$topics = new topicBuilder;
+
 
 $maxtopics = mt_rand($topicLimit['min'],$topicLimit['max']);
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
@@ -120,21 +142,6 @@ sleep(1);
 
 $topic = 0;
 while ($topic++ <= $maxtopics) {
-	$userid = mt_rand(1, $totalusers);
-	vB::getRequest()->createSessionForUser($userid);
-
-	try 
-	{
-    $key= array_rand($channels);
-		$topics->createThreads($channels[$key], 1);
-	}
-	catch (vB_Exception_Database $e)
-	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
-	}
-	catch (Exception $e)
-	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
-	}
+	process($channels, $totalusers);
 }
 echo "Completed \n";
