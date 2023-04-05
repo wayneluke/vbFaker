@@ -41,11 +41,11 @@ class topicBuilder
 			'title' => $title,
 			'rawtext' => $text,
 			'tags' => $tags,
-    ];
+    	];
     
-    $options = [
-      'nl2br' => true,
-    ];
+    	$options = [
+    	  	'nl2br' => true,
+    	];
 
 		return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
 	}
@@ -55,15 +55,15 @@ class topicBuilder
 		$textData = [
 			'channelid' => $channelid,
 			'parentid' => $firstpostid,
-      'rawtext' => $text,
-      'nl2br' => true,
-    ];
+      		'rawtext' => $text,
+      		'nl2br' => true,
+    	];
 
-    $options = [
-      'nl2br' => true,
-    ];
+    	$options = [
+      		'nl2br' => true,
+   		];
 
-    return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
+    	return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
 	}
 
 	protected function createThread($channelid, $title, $text, $replyCount = 3)
@@ -73,9 +73,9 @@ class topicBuilder
 
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
-      $reply = "This is reply $i to thread \"$title\"\n\n";
-      $characters = mt_rand(10,1000);
-      $reply .= $this->faker->text($characters);
+      		$reply = "This is reply $i to thread \"$title\"\n\n";
+      		$characters = mt_rand(10,1000);
+      		$reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
 			echo "Added reply #$i (nodeid:$replynodeid) to thread (nodeid:$nodeid)\n";
 		}
