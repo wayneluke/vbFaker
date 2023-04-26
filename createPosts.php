@@ -12,7 +12,21 @@ $topicLimit = [
 	'max' => 25000,
 ];
 
-$totalusers = 13000;
+function random_user() {
+	global $mysql;
+    $query = "SELECT userid, username, usergroupid FROM USER WHERE usergroupid IN (2,14,15) ORDER BY RAND() LIMIT 1";
+
+    $conn = new mysqli($mysql['servername'], $mysql['username'], $mysql['password'], $mysql['dbname']);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $conn->close();
+
+    return $row;
+}
 
 class topicBuilder
 {
@@ -77,24 +91,26 @@ class topicBuilder
 
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
+			$user = random_user();
+			vB::getRequest()->createSessionForUser($user['userid']);			
       		$reply = "This is reply $i to thread \"$title\"\n\n";
       		$characters = mt_rand(10,1000);
       		$reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
-			echo "Added reply #$i (nodeid:$replynodeid) to thread (nodeid:$nodeid)\n";
+			echo "Added reply #$i (nodeid:$replynodeid author:" . $user['userid'] . ") to thread (nodeid:$nodeid)\n";
 		}
 
 		return $nodeid;
 	}
 
-	public function createThreads($channelid, $totalusers, $threadCount = 5)
+	public function createThreads($channelid, $threadCount = 5)
 	{
 		$replyCount=0;
 
     	for ($i = 1; $i <= $threadCount; ++$i)
 		{
-			$userid = mt_rand(1, $totalusers);
-			vB::getRequest()->createSessionForUser($userid);
+			$user = random_user();
+			vB::getRequest()->createSessionForUser($user['userid']);
 			$replyCount = mt_rand(0,100);
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
       		$title = $this->faker->words(3, true);
@@ -105,14 +121,14 @@ class topicBuilder
 	}
 }
 
-function process($channels, $maxusers)
+function process($channels)
 {
 	$topics = new topicBuilder;
 
 	try 
 	{
     	$key= array_rand($channels);
-		$topics->createThreads($channels[$key], $maxusers, 1);
+		$topics->createThreads($channels[$key], 1);
 	}
 	catch (vB_Exception_Database $e)
 	{
@@ -147,6 +163,6 @@ sleep(1);
 
 for ($topic = 1; $topic <= $maxtopics; ++$topic) {
 // while ($topic++ <= $maxtopics) {
-	process($channels, $totalusers);
+	process($channels);
 }
 echo "Completed \n";
