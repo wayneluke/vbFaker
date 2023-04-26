@@ -1,19 +1,22 @@
 # vbFaker
-Creates fake data in a vBulletin 5 installation. In order to do this, it utilizes the vBulletin API.
+
+These scripts were written to rapidly create large amounts of fake data in a vBulletin 5 installation. In order to do this, it utilizes the vBulletin API.
 
 ## Installing
 
 To install:
 
 1. [Install Composer](https://getcomposer.org/download/).
-1. Install vBulletin 5 into a web accessible directory.
+2. Install vBulletin 5 into a web accessible directory.
     - Your vBulletin installation must have a user with the userid of 1.
-1. Download this repository to your local drive.
-1. Copy the vBFaker directory into your /core/ directory.
-1. Open a command line window (cmd, wsl, bash, zsh, etc...)
-1. From the command line change to the vbFaker directory.
+    - For best results, a number of channels should be created. These can be listed in createPosts.php
+3. Download this repository to your local drive.
+4. Open a command line window (cmd, wsl, bash, zsh, etc...)
+5. From the command line change to the vbFaker directory.
     - `cd /vbulletin/core/vbFaker`
-1. Run `composer update`.
+6. Run `composer update`.
+7. Rename config.inc.php to config.php
+8. Update the variables within config.php to point to your specific vBulletin install.
 
 ### Dependencies
 
@@ -38,11 +41,16 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - email addresses - firstname.lastname@domain.com (UTF-8 characters are stripped via iconv)
   - randomized passwords
   - random IP addresses.
-  - Users are placed in random usergroups
+  - Users are placed in random usergroups. 
+
 - createPosts.php: Creates a random number of topics and replies in Forum Channels from a specified list.
-  - Each Topic starter has a random length of Lorem Ipsum text.
-  - Each Topic will have a random number of replies between 0 and 100.
-  - Each Reply will reference the Topic ID and have a random length of Lorem Ipsum text.
+  - Topic Starter has a random length of Lorem Ipsum text.
+  - Topics have random authors.
+  - Topics will have a random number of replies between 0 and 100.
+  - Tags will be randomly created for each topic.
+  - Replies have random authors
+  - Replies will reference the Topic ID
+  - Replies have a random length of Lorem Ipsum text.
 
 ## Notes
 
@@ -51,9 +59,11 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - Settings -> Options -> Message Posting and Editing Options - Disable Floodcheck.
 
 
-2. If your list of channels does not match the array at the top of createPosts.php then you must update this array. It is the comma separated list within the [] of line #3. Default Line:
+2. If your list of channels does not match the array at the top of createPosts.php then you must update this array. It is the comma separated list within the [] of line #7. Default Line:
 
 >```$channels = [16,17,18,20,21,22,24,25,26];```
+
+3. When creating users, the current code expects two custom usergroups. On a new installation, these will have the usergroup IDs of 14 and 15.
 
 ## Coming Soon
 
