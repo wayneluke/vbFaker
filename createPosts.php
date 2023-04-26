@@ -1,5 +1,9 @@
 <?php
 
+// Set the maximum execution time and memory limit for the script
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
 $channels = [16,17,18,20,21,22,24,25,26];
 
 
@@ -8,7 +12,7 @@ $topicLimit = [
 	'max' => 25000,
 ];
 
-$totalusers = 9777;
+$totalusers = 13000;
 
 class topicBuilder
 {
@@ -140,8 +144,9 @@ $maxtopics = mt_rand($topicLimit['min'],$topicLimit['max']);
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
 sleep(1);
 
-$topic = 0;
-while ($topic++ <= $maxtopics) {
+
+for ($topic = 1; $topic <= $maxtopics; ++$topic) {
+// while ($topic++ <= $maxtopics) {
 	process($channels, $totalusers);
 }
 echo "Completed \n";
