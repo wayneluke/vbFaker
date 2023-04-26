@@ -1,8 +1,23 @@
 <?php
+<?php
 
-$core='/volumes/secondary/sites/vbulletin/forum/core/';
+// The location of your vBulletin Core directory.
+$core='/volumes/secondary/sites/vbulletin/core/';
+
+// The following values are used to retrieve a random user for posting content.
+
+$DB['servername'] = "localhost";  // replace with your MySQL server name
+$DB['username'] = "dbadmin";     // replace with your MySQL username
+$DB['password'] = "6BHgyl2iLaEjlxkpL0GY";     // replace with your MySQL password
+$DB['dbname'] = "vb5_forum";  // replace with your MySQL database name
 
 $log_errors=TRUE;
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// Do Not Edit Below...
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 if ($log_errors) {
     if (file_exists('./error_log.txt')) { 
@@ -14,5 +29,3 @@ if ($log_errors) {
     ini_set('log_errors', TRUE); // Error/Exception file logging engine.
     ini_set('error_log', './error_log.txt'); // Logging file path
 }
-
-ini_set('memory_limit','256M');
