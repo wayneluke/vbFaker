@@ -162,7 +162,24 @@ sleep(1);
 
 
 for ($topic = 1; $topic <= $maxtopics; ++$topic) {
-// while ($topic++ <= $maxtopics) {
-	process($channels);
+	$topics = new topicBuilder;
+
+	try 
+	{
+    	$key= array_rand($channels);
+		$topics->createThreads($channels[$key], 1);
+	}
+	catch (vB_Exception_Database $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+	catch (Exception $e)
+	{
+		echo "Hit an exception: " . $e->getMessage() . "\n";
+	}
+
+	$topics=null;
+	gc_collect_cycles();
+
 }
 echo "Completed \n";
