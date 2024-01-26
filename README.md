@@ -66,6 +66,8 @@ Each task is its own file within the vbFaker directory. Please read the comments
 
 3. When creating users, the current code expects two custom usergroups. On a new installation, these will have the usergroup IDs of 14 and 15.
 
+4. You will probably experience out of memory errors in the vBulletin API if PHP Max Memory is not set to 256 MB or higher.
+
 ## Coming Soon
 
 - [ ] The ability to create topics with other content types.
