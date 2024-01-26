@@ -14,8 +14,8 @@
 ################# Set Variables ############################
 // How many users? 
 $limits = [
-	'min' => 1500,
-	'max' => 6000,
+	'min' => 5000,
+	'max' => 15000,
 ];
 
 
@@ -62,21 +62,21 @@ function buildUser($switchLocale=false)
 	
 	$groupChance=mt_rand(1,100);
 	switch (true) {
-		case ($groupChance < 4): 
+		case ($groupChance < 2): 
 			$newUser['usergroupid']=8;
-			break;
+			break;		
+		case ($groupChance < 4):
+			$newUser['usergroupid']=15;
+			break;				
 		case ($groupChance < 10):
 			$newUser['usergroupid']=3;
 			break;
 		case ($groupChance < 20):
 			$newUser['usergroupid']=4;
 			break;
-		case ($groupChance < 30):
+		case ($groupChance < 50):
 			$newUser['usergroupid']=14;
-			break;
-		case ($groupChance < 40):
-				$newUser['usergroupid']=15;
-				break;
+			break;		
 		default:
 			$newUser['usergroupid']=2;
 			break;
@@ -132,7 +132,7 @@ vB::getCurrentSession()->fetchCpsessionHash();
 $maxUsers= mt_rand ($limits['min'], $limits['max']);
 
 $userApi = vB_Api::instance('user');
-echo 'Attempting to create ' . $maxUsers . ' Users.' . "\n";
+echo 'Creating Users.' . "\n";
 sleep(2);
 
 $users=0;

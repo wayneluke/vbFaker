@@ -1,12 +1,5 @@
 <?php
 
-// Set the maximum execution time and memory limit for the script
-set_time_limit(0);
-ini_set('memory_limit', '-1');
-
-$channels = [16,17,18,20,21,22,24,25,26];
-
-
 $topicLimit = [
 	'min' => 5000,
 	'max' => 25000,
@@ -84,7 +77,7 @@ class topicBuilder
     	return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
 	}
 
-	protected function createThread($channelid, $title, $text, $replyCount = 3)
+	protected function createThread($channelid, $title, $text, $replyCount = 5)
 	{
 		$nodeid = $this->createFirstPost($channelid, $title, $text);
 		echo "Created topic (nodeid:$nodeid) (Title:$title)\n";
@@ -92,6 +85,9 @@ class topicBuilder
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
 			$user = random_user();
+			if ($user['usergroupid'] == 15) {
+				$replyCount=0;
+			}
 			vB::getRequest()->createSessionForUser($user['userid']);			
       		$reply = "This is reply $i to thread \"$title\"\n\n";
       		$characters = mt_rand(10,1000);
@@ -103,15 +99,12 @@ class topicBuilder
 		return $nodeid;
 	}
 
-	public function createThreads($channelid, $threadCount = 5)
+	public function createThreads($channelid, $threadCount = 5, $replyCount = 5)
 	{
-		$replyCount=0;
-
-    	for ($i = 1; $i <= $threadCount; ++$i)
+    for ($i = 1; $i <= $threadCount; ++$i)
 		{
 			$user = random_user();
 			vB::getRequest()->createSessionForUser($user['userid']);
-			$replyCount = mt_rand(0,100);
 			$ident = substr(md5(microtime(true) . uniqid('', true)), 0, 5);
       		$title = $this->faker->words(3, true);
       		$paragraphs = mt_rand(5, 15);
@@ -132,7 +125,7 @@ function process($channels)
 	}
 	catch (vB_Exception_Database $e)
 	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
+		echo "Database Error: " . $e->getMessage() . "\n";
 	}
 	catch (Exception $e)
 	{
@@ -160,18 +153,22 @@ $maxtopics = mt_rand($topicLimit['min'],$topicLimit['max']);
 echo 'Creating ' . $maxtopics . ' topics' . "\n\r";
 sleep(1);
 
+//$lgtopic = new topicBuilder;
+//$lgtopic->createThreads(62, 1, 7500);
+//die();
 
 for ($topic = 1; $topic <= $maxtopics; ++$topic) {
 	$topics = new topicBuilder;
 
 	try 
 	{
-    	$key= array_rand($channels);
-		$topics->createThreads($channels[$key], 1);
+    $key= array_rand($channels);
+		$replies = mt_rand(0,120);
+		$topics->createThreads($channels[$key], 1, $replies);
 	}
 	catch (vB_Exception_Database $e)
 	{
-		echo "Hit an exception: " . $e->getMessage() . "\n";
+		echo "Database Error: " . $e->getMessage() . "\n";
 	}
 	catch (Exception $e)
 	{

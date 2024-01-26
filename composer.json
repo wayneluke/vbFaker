@@ -1,5 +1,8 @@
 {
     "require": {
         "fakerphp/faker": "^1.21"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
     }
 }
