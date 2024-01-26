@@ -12,6 +12,15 @@ $DB['dbname'] = "forum";  // replace with your MySQL database name
 
 $log_errors=TRUE;
 
+$channels = [62,63,64,65,66,68,69,70,71,72,73,74,75,76];
+
+// Not current used.
+$posters = [
+    ['value' => '2', 'weight' => 10],
+    ['value' => '14', 'weight' => 10],
+    ['value' => '15', 'weight' => 1],
+];
+
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 // Do Not Edit Below...

@@ -9,6 +9,8 @@
  * 
  * Note: Users if verify email is turned on for registration, users will be placed in 
  * Users Awaiting Email Confirmation. You will need to manually move them.
+ * 
+ * Users are randomly assigned to usergroups. You will need to update the usergroup list starting at line 65.
  */
 
 ################# Set Variables ############################

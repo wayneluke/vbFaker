@@ -1,5 +1,11 @@
 <?php
 
+/* Creates a random number of topics. Each topic will have between 0 and 120 replies. Users for each post are randomly selected from a subset of usergroups.
+
+Make sure to set the arrays of channels and posters in your config.php file.
+
+*/
+
 $topicLimit = [
 	'min' => 5000,
 	'max' => 25000,
@@ -7,7 +13,9 @@ $topicLimit = [
 
 function random_user() {
 	global $mysql;
-    $query = "SELECT userid, username, usergroupid FROM USER WHERE usergroupid IN (2,14,15) ORDER BY RAND() LIMIT 1";
+	global $posters;
+
+    $query = "SELECT userid, username, usergroupid FROM USER WHERE usergroupid IN (" . "'" . implode("','", $posters) . "'" . ") ORDER BY RAND() LIMIT 1";
 
     $conn = new mysqli($mysql['servername'], $mysql['username'], $mysql['password'], $mysql['dbname']);
 
