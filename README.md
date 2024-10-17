@@ -7,9 +7,9 @@ These scripts were written to rapidly create large amounts of fake data in a vBu
 To install:
 
 1. [Install Composer](https://getcomposer.org/download/).
-2. Install vBulletin 5 into a web accessible directory.
+2. Install vBulletin into a web accessible directory.
     - Your vBulletin installation must have a user with the userid of 1.
-    - For best results, a number of channels should be created. These can be listed in createPosts.php
+    - For best results, a number of channels should be created. These can be listed in config.php.
 3. Download this repository to your local drive.
 4. Open a command line window (cmd, wsl, bash, zsh, etc...)
 5. From the command line change to the vbFaker directory.
@@ -60,15 +60,15 @@ Each task is its own file within the vbFaker directory. Please read the comments
   - Settings -> Options -> Message Posting and Editing Options - Disable Floodcheck.
 
 
-2. If your list of channels does not match the array at the top of createPosts.php then you must update this array. It is the comma separated list within the [] of line #7. Default Line:
+2. If your list of channels does not match the array in config.php then you must update this array. It is the comma separated list within the [] of line #7. Default Line:
 
->```$channels = [16,17,18,20,21,22,24,25,26];```
+>```$channels = [62,63,64,65,66,68,69,70,71,72,73,74,75,76];```
 
-3. When creating users, the current code expects two custom usergroups. On a new installation, these will have the usergroup IDs of 14 and 15.
+3. When creating users, the current code expects two custom usergroups. On a new installation, these will have the usergroup IDs of 14 and 15. If you do not want to use these custom usergroups, you will need to modify the posters array in config.php as well as createUsers.php.
 
-4. You will probably experience out of memory errors in the vBulletin API if PHP Max Memory is not set to 256 MB or higher.
+5. You will probably experience out of memory errors in the vBulletin API if PHP Max Memory is not set to 256 MB or higher.
 
-## Coming Soon
+## Ideas for improvement.
 
 - [ ] The ability to create topics with other content types.
 - [ ] Command line parameters to control amount of items created.
