@@ -15,32 +15,32 @@ function random_user() {
 	global $mysql;
 	global $posters;
 
-    $query = "SELECT userid, username, usergroupid FROM USER WHERE usergroupid IN (" . "'" . implode("','", $posters) . "'" . ") ORDER BY RAND() LIMIT 1";
+	$query = "SELECT userid, username, usergroupid FROM USER WHERE usergroupid IN (" . "'" . implode("','", $posters) . "'" . ") ORDER BY RAND() LIMIT 1";
 
-    $conn = new mysqli($mysql['servername'], $mysql['username'], $mysql['password'], $mysql['dbname']);
+	$conn = new mysqli($mysql['servername'], $mysql['username'], $mysql['password'], $mysql['dbname']);
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    $result = $conn->query($query);
-    $row = $result->fetch_assoc();
-    $conn->close();
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$result = $conn->query($query);
+	$row = $result->fetch_assoc();
+	$conn->close();
 
-    return $row;
+	return $row;
 }
 
 class topicBuilder
 {
 
-  protected $faker;
+	protected $faker;
 
-  public function __construct () 
-  {
-    // use the factory to create a Faker\Generator instance
-    $this->faker = Faker\Factory::create();
+	public function __construct () 
+	{
+		// use the factory to create a Faker\Generator instance
+		$this->faker = Faker\Factory::create();
   }
   
-  protected function createFirstPost($channelid, $title, $text)
+	protected function createFirstPost($channelid, $title, $text)
 	{
 		$tags='';
 		$tagC=0;
@@ -63,11 +63,11 @@ class topicBuilder
 			'tags' => $tags,
 			'created' => $timeNow,
 			'published' => $timeNow,
-    	];
-    
-    	$options = [
-    	  	'nl2br' => true,
-    	];
+			];
+
+		 	$options = [
+		  	'nl2br' => true,
+			];
 
 		return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
 	}
@@ -75,21 +75,21 @@ class topicBuilder
 	protected function createReply($channelid, $firstpostid, $text)
 	{
 		$timeNow=time();
-		
+
 		$textData = [
 			'channelid' => $channelid,
 			'parentid' => $firstpostid,
-      'rawtext' => $text,
-      'nl2br' => true,
+			'rawtext' => $text,
+			'nl2br' => true,
 			'created' => $timeNow,
 			'published' => $timeNow,
-    	];
+		];
 
-    	$options = [
-      		'nl2br' => true,
-   		];
+		$options = [
+			'nl2br' => true,
+		];
 
-    	return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
+			return vB_Api::instanceInternal('Content_Text')->add($textData, $options);
 	}
 
 	protected function createThread($channelid, $title, $text, $replyCount = 5)
@@ -103,10 +103,10 @@ class topicBuilder
 			if ($user['usergroupid'] == 15) {
 				$replyCount=0;
 			}
-			vB::getRequest()->createSessionForUser($user['userid']);			
-      		$reply = "This is reply $i to thread \"$title\"\n\n";
-      		$characters = mt_rand(10,1000);
-      		$reply .= $this->faker->text($characters);
+			vB::getRequest()->createSessionForUser($user['userid']);
+			$reply = "This is reply $i to thread \"$title\"\n\n";
+			$characters = mt_rand(10,1000);
+			$reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
 			echo "Added reply #$i (nodeid:$replynodeid author:" . $user['userid'] . ") to thread (nodeid:$nodeid)\n";
 			usleep(500000);
@@ -117,7 +117,7 @@ class topicBuilder
 
 	public function createThreads($channelid, $threadCount = 5, $replyCount = 5)
 	{
-    for ($i = 1; $i <= $threadCount; ++$i)
+		for ($i = 1; $i <= $threadCount; ++$i)
 		{
 			$user = random_user();
 			vB::getRequest()->createSessionForUser($user['userid']);
@@ -136,7 +136,7 @@ function process($channels)
 
 	try 
 	{
-    	$key= array_rand($channels);
+		$key= array_rand($channels);
 		$topics->createThreads($channels[$key], 1);
 	}
 	catch (vB_Exception_Database $e)
@@ -178,7 +178,7 @@ for ($topic = 1; $topic <= $maxtopics; ++$topic) {
 
 	try 
 	{
-    $key= array_rand($channels);
+		$key= array_rand($channels);
 		$replies = mt_rand(0,120);
 		$topics->createThreads($channels[$key], 1, $replies);
 	}

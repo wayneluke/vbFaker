@@ -48,7 +48,7 @@ function buildUser($switchLocale=false)
 	$emailType = $percentage < 60 ? 'freeEmailDomain' : 'domainName';
 	$email = str_replace([' ', '\''],['.',''],$newUser['username']) . '@' . $faker->$emailType;
 	setlocale(LC_ALL, 'de_DE');
-    $newUser['email'] = strtolower(iconv('UTF-8', 'utf-8//TRANSLIT', $email));
+	$newUser['email'] = strtolower(iconv('UTF-8', 'utf-8//TRANSLIT', $email));
 
 	$birthday = $faker->dateTimeBetween('-80 years','-15 years');
 	$newUser['birthday'] = $birthday->format('m-d-Y');
@@ -66,10 +66,10 @@ function buildUser($switchLocale=false)
 	switch (true) {
 		case ($groupChance < 2): 
 			$newUser['usergroupid']=8;
-			break;		
+			break;
 		case ($groupChance < 4):
 			$newUser['usergroupid']=15;
-			break;				
+			break;
 		case ($groupChance < 10):
 			$newUser['usergroupid']=3;
 			break;
@@ -78,7 +78,7 @@ function buildUser($switchLocale=false)
 			break;
 		case ($groupChance < 50):
 			$newUser['usergroupid']=14;
-			break;		
+			break;
 		default:
 			$newUser['usergroupid']=2;
 			break;
