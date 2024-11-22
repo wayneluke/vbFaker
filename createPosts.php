@@ -44,6 +44,7 @@ class topicBuilder
 	{
 		$tags='';
 		$tagC=0;
+		$timeNow=time();
 
 		$words = preg_split('/[\ \n\r\,\.]+/', $text, -1, PREG_SPLIT_NO_EMPTY);
 		while ($tagC < 5) {
@@ -60,6 +61,8 @@ class topicBuilder
 			'title' => $title,
 			'rawtext' => $text,
 			'tags' => $tags,
+			'created' => $timeNow,
+			'published' => $timeNow,
     	];
     
     	$options = [
@@ -71,11 +74,15 @@ class topicBuilder
 
 	protected function createReply($channelid, $firstpostid, $text)
 	{
+		$timeNow=time();
+		
 		$textData = [
 			'channelid' => $channelid,
 			'parentid' => $firstpostid,
-      		'rawtext' => $text,
-      		'nl2br' => true,
+      'rawtext' => $text,
+      'nl2br' => true,
+			'created' => $timeNow,
+			'published' => $timeNow,
     	];
 
     	$options = [
@@ -89,7 +96,7 @@ class topicBuilder
 	{
 		$nodeid = $this->createFirstPost($channelid, $title, $text);
 		echo "Created topic (nodeid:$nodeid) (Title:$title)\n";
-
+		sleep(1);
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
 			$user = random_user();
@@ -102,6 +109,7 @@ class topicBuilder
       		$reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
 			echo "Added reply #$i (nodeid:$replynodeid author:" . $user['userid'] . ") to thread (nodeid:$nodeid)\n";
+			usleep(500000);
 		}
 
 		return $nodeid;
