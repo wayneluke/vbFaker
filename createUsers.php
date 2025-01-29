@@ -16,8 +16,8 @@
 ################# Set Variables ############################
 // How many users? 
 $limits = [
-	'min' => 5000,
-	'max' => 15000,
+	'min' => 10000,
+	'max' => 25000,
 ];
 
 
@@ -76,7 +76,7 @@ function buildUser($switchLocale=false)
 		case ($groupChance < 20):
 			$newUser['usergroupid']=4;
 			break;
-		case ($groupChance < 50):
+		case ($groupChance < 28):
 			$newUser['usergroupid']=14;
 			break;
 		default:

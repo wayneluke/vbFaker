@@ -96,7 +96,7 @@ class topicBuilder
 	{
 		$nodeid = $this->createFirstPost($channelid, $title, $text);
 		echo "Created topic (nodeid:$nodeid) (Title:$title)\n";
-		sleep(1);
+		//sleep(60);
 		for ($i = 1; $i <= $replyCount; ++$i)
 		{
 			$user = random_user();
@@ -109,7 +109,7 @@ class topicBuilder
 			$reply .= $this->faker->text($characters);
 			$replynodeid = $this->createReply($channelid, $nodeid, $reply);
 			echo "Added reply #$i (nodeid:$replynodeid author:" . $user['userid'] . ") to thread (nodeid:$nodeid)\n";
-			usleep(500000);
+			//sleep(5);
 		}
 
 		return $nodeid;
@@ -155,13 +155,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 // alternatively, use another PSR-4 compliant autoloader
 
 
-//init the system
-require_once('config.php');
-require_once($core . 'vb/vb.php');
-vB::init();
-
-vB::setRequest(new vB_Request_Cli());
-
 //$mainForum = vB_Api::instanceInternal('Content_Channel')->fetchChannelIdByGUID(vB_Channel::MAIN_FORUM);
 
 
@@ -175,6 +168,12 @@ sleep(1);
 
 for ($topic = 1; $topic <= $maxtopics; ++$topic) {
 	$topics = new topicBuilder;
+	//init the system
+	require_once('config.php');
+	require_once($core . 'vb/vb.php');
+	vB::init();
+
+	vB::setRequest(new vB_Request_Cli());
 
 	try 
 	{
